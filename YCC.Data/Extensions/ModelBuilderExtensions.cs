@@ -102,13 +102,13 @@ namespace YCC.Data.Extensions
                 Id = adminId,
                 UserName = "admin",
                 NormalizedUserName = "admin",
-                Email = "tedu.international@gmail.com",
-                NormalizedEmail = "tedu.international@gmail.com",
+                Email = "ycc@gmail.com",
+                NormalizedEmail = "ycc@gmail.com",
                 EmailConfirmed = true,
-                PasswordHash = hasher.HashPassword(null, "Abcd1234$"),
+                PasswordHash = hasher.HashPassword(null, "Tyty@123"),
                 SecurityStamp = string.Empty,
-                FirstName = "Toan",
-                LastName = "Bach",
+                FirstName = "Kjs",
+                LastName = "Doji",
                 Dob = new DateTime(2020, 01, 31)
             });
 
