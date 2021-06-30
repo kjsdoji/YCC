@@ -13,9 +13,9 @@ namespace YCC.Data.Extensions
         public static void Seed(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<AppConfig>().HasData(
-               new AppConfig() { Key = "HomeTitle", Value = "This is home page of eShopSolution" },
-               new AppConfig() { Key = "HomeKeyword", Value = "This is keyword of eShopSolution" },
-               new AppConfig() { Key = "HomeDescription", Value = "This is description of eShopSolution" }
+               new AppConfig() { Key = "HomeTitle", Value = "This is home page of YCC" },
+               new AppConfig() { Key = "HomeKeyword", Value = "This is keyword of YCC" },
+               new AppConfig() { Key = "HomeDescription", Value = "This is description of YCC" }
                );
             modelBuilder.Entity<Language>().HasData(
                 new Language() { Id = "vi", Name = "Tiếng Việt", IsDefault = true },

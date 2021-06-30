@@ -12,7 +12,6 @@ namespace YCC.Data.EF
     {
         public YCCDbContext CreateDbContext(string[] args)
         {
-            //tao doi tuong configuration
             IConfigurationRoot configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json")
