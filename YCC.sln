@@ -14,9 +14,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YCC.Data", "YCC.Data\YCC.Da
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YCC.Application", "YCC.Application\YCC.Application.csproj", "{C31D6428-1B3E-44F1-80A7-FE3C04097B71}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YCC.Utilities", "YCC.Utilities\YCC.Utilities.csproj", "{075222DB-86C4-43F8-B1AA-8A74562AE546}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YCC.Utilities", "YCC.Utilities\YCC.Utilities.csproj", "{075222DB-86C4-43F8-B1AA-8A74562AE546}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YCC.ViewModels", "YCC.ViewModels\YCC.ViewModels.csproj", "{29480880-7A99-4C02-8A88-7411F732DA62}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YCC.ViewModels", "YCC.ViewModels\YCC.ViewModels.csproj", "{29480880-7A99-4C02-8A88-7411F732DA62}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YCC.BackendApi", "YCC.BackendApi\YCC.BackendApi.csproj", "{E1D0847A-5093-4584-B092-DC0FD51CB39D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,6 +46,10 @@ Global
 		{29480880-7A99-4C02-8A88-7411F732DA62}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29480880-7A99-4C02-8A88-7411F732DA62}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29480880-7A99-4C02-8A88-7411F732DA62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1D0847A-5093-4584-B092-DC0FD51CB39D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1D0847A-5093-4584-B092-DC0FD51CB39D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1D0847A-5093-4584-B092-DC0FD51CB39D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1D0847A-5093-4584-B092-DC0FD51CB39D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
