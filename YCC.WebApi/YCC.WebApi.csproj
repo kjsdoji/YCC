@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="10.2.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.16" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\YCC.Application\YCC.Application.csproj" />
+    <ProjectReference Include="..\YCC.Data\YCC.Data.csproj" />
+    <ProjectReference Include="..\YCC.Utilities\YCC.Utilities.csproj" />
+    <ProjectReference Include="..\YCC.ViewModels\YCC.ViewModels.csproj" />
+  </ItemGroup>
+
+</Project>
