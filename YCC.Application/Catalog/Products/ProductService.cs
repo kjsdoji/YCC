@@ -332,8 +332,7 @@ namespace YCC.Application.Catalog.Products
             return await _context.SaveChangesAsync() > 0;
         }
 
-        //func save image
-        //truyen vao 1 cai IFormFile, tra ve 1 cai string
+        //IFormFile --> string
         private async Task<string> SaveFile(IFormFile file)
         {
             //lay ra filename
