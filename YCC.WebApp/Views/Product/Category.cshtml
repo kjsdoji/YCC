@@ -42,7 +42,7 @@
             var item = Model.Products.Items[i];
             <div class="row">
                 <div class="span2">
-                    <img src="@(Configuration["BaseAddress"] + @item.ThumbnailImage) " alt="@item.Name" />
+                    <img src="@item.ThumbnailImage" alt="@item.Name" />
                 </div>
                 <div class="span4">
                     <h3><localize>New | Available</localize></h3>
@@ -77,7 +77,7 @@
                 var item = Model.Products.Items[i];
                 <li class="span3">
                     <div class="thumbnail">
-                        <a href="/@culture.Name/@_loc["products"]/@item.Id"><img src="@(Configuration["BaseAddress"] + @item.ThumbnailImage)" alt="@item.Name" /></a>
+                        <a href="/@culture.Name/@_loc["products"]/@item.Id"><img src="@item.ThumbnailImage" alt="@item.Name" /></a>
                         <div class="caption">
                             <h5>@item.Name</h5>
                             <p>
