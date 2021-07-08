@@ -109,7 +109,6 @@ namespace YCC.BackendApi.Controllers
             return BadRequest();
         }
 
-        //Images
         [HttpPost("{productId}/images")]
         public async Task<IActionResult> CreateImage(int productId, [FromForm] ProductImageCreateRequest request)
         {

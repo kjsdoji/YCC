@@ -14,26 +14,22 @@
 
 <div class="row">
     <div id="gallery" class="span3">
-        <a href="@(Configuration["BaseAddress"] + Model.Product.ThumbnailImage)" title="@Model.Product.Name">
-            <img src="@(Configuration["BaseAddress"] + Model.Product.ThumbnailImage)" style="width:100%" alt="@Model.Product.Name" />
+        <a href="@Model.Product.ThumbnailImage" title="@Model.Product.Name">
+            <img src="@Model.Product.ThumbnailImage" style="width:100%" alt="@Model.Product.Name" />
         </a>
         <div id="differentview" class="moreOptopm carousel slide">
             <div class="carousel-inner">
                 <div class="item active">
-                    <a href="themes/images/products/large/f1.jpg"> <img style="width:29%" src="themes/images/products/large/f1.jpg" alt="" /></a>
-                    <a href="themes/images/products/large/f2.jpg"> <img style="width:29%" src="themes/images/products/large/f2.jpg" alt="" /></a>
-                    <a href="themes/images/products/large/f3.jpg"> <img style="width:29%" src="themes/images/products/large/f3.jpg" alt="" /></a>
+                    <a href="/themes/images/products/large/f1.jpg"> <img style="width:29%" src="/themes/images/products/large/f1.jpg" alt="sd" /></a>
+                    <a href="/themes/images/products/large/f2.jpg"> <img style="width:29%" src="/themes/images/products/large/f2.jpg" alt="sdf" /></a>
+                    <a href="/themes/images/products/large/f3.jpg"> <img style="width:29%" src="/themes/images/products/large/f3.jpg" alt="sf" /></a>
                 </div>
                 <div class="item">
-                    <a href="themes/images/products/large/f3.jpg"> <img style="width:29%" src="themes/images/products/large/f3.jpg" alt="" /></a>
-                    <a href="themes/images/products/large/f1.jpg"> <img style="width:29%" src="themes/images/products/large/f1.jpg" alt="" /></a>
-                    <a href="themes/images/products/large/f2.jpg"> <img style="width:29%" src="themes/images/products/large/f2.jpg" alt="" /></a>
+                    <a href="/themes/images/products/large/f3.jpg"> <img style="width:29%" src="/themes/images/products/large/f3.jpg" alt="sf" /></a>
+                    <a href="/themes/images/products/large/f1.jpg"> <img style="width:29%" src="/themes/images/products/large/f1.jpg" alt="gdf" /></a>
+                    <a href="/themes/images/products/large/f2.jpg"> <img style="width:29%" src="/themes/images/products/large/f2.jpg" alt="dgf" /></a>
                 </div>
             </div>
-            <!--
-            <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
-            <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
-            -->
         </div>
 
         <div class="btn-toolbar">
@@ -107,7 +103,7 @@
                     <div class="tab-pane" id="listView">
                         <div class="row">
                             <div class="span2">
-                                <img src="themes/images/products/4.jpg" alt="" />
+                                <img src="/themes/images/products/4.jpg" alt="" />
                             </div>
                             <div class="span4">
                                 <h3>New | Available</h3>
