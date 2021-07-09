@@ -83,73 +83,7 @@ namespace YCC.Data.Extensions
             modelBuilder.Entity<ProductInCategory>().HasData(
                 new ProductInCategory() { ProductId = 1, CategoryId = 1 }
                 );
-
-            var roleAdminId = new Guid("8D04DCE2-969A-435D-BBA4-DF3F325983DC");
-            var roleUserId = new Guid("35c242f0-1238-4fd0-9450-00a6d3cf9573");
-            var adminId = new Guid("69BD714F-9576-45BA-B5B7-F00649BE00DE");
-            var userId = new Guid("d1e5705a-03e0-4d86-8396-b639cedef1b7");
-            modelBuilder.Entity<AppRole>().HasData(
-                new AppRole
-                {
-                    Id = roleAdminId,
-                    Name = "admin",
-                    NormalizedName = "admin",
-                    Description = "Administrator role"
-                },
-                new AppRole
-                {
-                    Id = roleUserId,
-                    Name = "user",
-                    NormalizedName = "user",
-                    Description = "User role"
-                }
-                );
-
-            var hasher = new PasswordHasher<AppUser>();
-            modelBuilder.Entity<AppUser>().HasData(
-                new AppUser("admin")
-                {
-                    Id = adminId,
-                    UserName = "admin",
-                    NormalizedUserName = "admin",
-                    Email = "admin@gmail.com",
-                    NormalizedEmail = "admin@gmail.com",
-                    EmailConfirmed = true,
-                    PasswordHash = hasher.HashPassword(null, "Tyty@123"),
-                    SecurityStamp = string.Empty,
-                    FirstName = "Admin",
-                    LastName = "Ad",
-                    Dob = new DateTime(2020, 01, 31)
-                },
-                new AppUser("user")
-                {
-                    Id = userId,
-                    UserName = "user",
-                    NormalizedUserName = "user",
-                    Email = "user@gmail.com",
-                    NormalizedEmail = "user@gmail.com",
-                    EmailConfirmed = true,
-                    PasswordHash = hasher.HashPassword(null, "Tyty@123"),
-                    SecurityStamp = string.Empty,
-                    FirstName = "User",
-                    LastName = "Us",
-                    Dob = new DateTime(2020, 01, 31)
-                }
-                );
-
-            modelBuilder.Entity<IdentityUserRole<Guid>>().HasData(
-                new IdentityUserRole<Guid>
-                {
-                    RoleId = roleAdminId,
-                    UserId = adminId
-                },
-                new IdentityUserRole<Guid>
-                {
-                    RoleId = roleUserId,
-                    UserId = userId
-                }
-                );
-
+                       
             modelBuilder.Entity<Slide>().HasData(
                 new Slide() { Id = 1, Name = "Second Thumbnail label", Description = "Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.", SortOrder = 1, Url = "#", Image = "/themes/images/carousel/1.png", Status = Status.Active },
                 new Slide() { Id = 2, Name = "Second Thumbnail label", Description = "Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.", SortOrder = 2, Url = "#", Image = "/themes/images/carousel/2.png", Status = Status.Active },

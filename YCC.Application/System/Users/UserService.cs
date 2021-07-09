@@ -20,12 +20,12 @@ namespace YCC.Application.System.Users
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
-        private readonly RoleManager<AppRole> _roleManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _config;
 
         public UserService(UserManager<AppUser> userManager,
             SignInManager<AppUser> signInManager,
-            RoleManager<AppRole> roleManager,
+            RoleManager<IdentityRole> roleManager,
             IConfiguration config)
         {
             _userManager = userManager;
@@ -78,9 +78,9 @@ namespace YCC.Application.System.Users
             return new ApiErrorResult<bool>("Xóa không thành công");
         }
 
-        public async Task<ApiResult<UserVm>> GetById(Guid id)
+        public async Task<ApiResult<UserVm>> GetById(string id)
         {
-            var user = await _userManager.FindByIdAsync(id.ToString());
+            var user = await _userManager.FindByIdAsync(id);
             if (user == null)
             {
                 return new ApiErrorResult<UserVm>("User không tồn tại");
@@ -164,7 +164,7 @@ namespace YCC.Application.System.Users
             return new ApiErrorResult<bool>("Đăng ký không thành công");
         }
 
-        public async Task<ApiResult<bool>> RoleAssign(Guid id, RoleAssignRequest request)
+        public async Task<ApiResult<bool>> RoleAssign(string id, RoleAssignRequest request)
         {
             var user = await _userManager.FindByIdAsync(id.ToString());
             if (user == null)
@@ -193,7 +193,7 @@ namespace YCC.Application.System.Users
             return new ApiSuccessResult<bool>();
         }
 
-        public async Task<ApiResult<bool>> Update(Guid id, UserUpdateRequest request)
+        public async Task<ApiResult<bool>> Update(string id, UserUpdateRequest request)
         {
             if (await _userManager.Users.AnyAsync(x => x.Email == request.Email && x.Id != id))
             {

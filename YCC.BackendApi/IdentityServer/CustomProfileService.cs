@@ -42,8 +42,8 @@ namespace YCC.BackendApi.IdentityServer
                 var claims = new List<Claim>
                 {
                     //new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString(CultureInfo.InvariantCulture)),
-                    new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString("eee")),
-                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString("eee")),
+                    new Claim(JwtRegisteredClaimNames.Sub, user.Id),
+                    new Claim(ClaimTypes.NameIdentifier, user.Id),
                     new Claim(JwtClaimTypes.Name, user.Email),
                     new Claim(JwtClaimTypes.Email, user.Email),
                 };

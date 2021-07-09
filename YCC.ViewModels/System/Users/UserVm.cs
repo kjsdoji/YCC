@@ -7,7 +7,7 @@ namespace YCC.ViewModels.System.Users
 {
     public class UserVm
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
 
         [Display(Name = "Tên")]
         public string FirstName { get; set; }

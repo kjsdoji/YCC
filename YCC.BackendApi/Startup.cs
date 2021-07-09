@@ -46,7 +46,7 @@ namespace YCC.BackendApi
             services.AddDbContext<YCCDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString(SystemConstants.MainConnectionString)));
             // RS: Add ASP Identity(NOT AddDefaultIdentity)
-            services.AddIdentity<AppUser, AppRole>(options => options.SignIn.RequireConfirmedAccount = false)
+            services.AddIdentity<AppUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<YCCDbContext>()
                 .AddDefaultTokenProviders();
             // RS: Add IdentityServer4
@@ -70,7 +70,7 @@ namespace YCC.BackendApi
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<UserManager<AppUser>, UserManager<AppUser>>();
             services.AddTransient<SignInManager<AppUser>, SignInManager<AppUser>>();
-            services.AddTransient<RoleManager<AppRole>, RoleManager<AppRole>>();
+            //services.AddTransient<RoleManager<AppRole>, RoleManager<AppRole>>();
             services.AddTransient<ILanguageService, LanguageService>();
             services.AddTransient<ISlideService, SlideService>();
             services.AddTransient<IRoleService, RoleService>();
