@@ -147,7 +147,7 @@ namespace YCC.Application.System.Users
                 return new ApiErrorResult<bool>("Emai đã tồn tại");
             }
 
-            user = new AppUser()
+            user = new AppUser(request.UserName)
             {
                 Dob = request.Dob,
                 Email = request.Email,

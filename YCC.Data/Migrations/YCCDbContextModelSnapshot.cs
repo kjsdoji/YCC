@@ -98,6 +98,11 @@ namespace YCC.Data.Migrations
                         {
                             UserId = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"),
                             RoleId = new Guid("8d04dce2-969a-435d-bba4-df3f325983dc")
+                        },
+                        new
+                        {
+                            UserId = new Guid("d1e5705a-03e0-4d86-8396-b639cedef1b7"),
+                            RoleId = new Guid("35c242f0-1238-4fd0-9450-00a6d3cf9573")
                         });
                 });
 
@@ -180,10 +185,18 @@ namespace YCC.Data.Migrations
                         new
                         {
                             Id = new Guid("8d04dce2-969a-435d-bba4-df3f325983dc"),
-                            ConcurrencyStamp = "286bb85f-87c7-4811-81e7-b6428023baf5",
+                            ConcurrencyStamp = "9f2ca94e-f652-48aa-8ca4-04cc49953d78",
                             Description = "Administrator role",
                             Name = "admin",
                             NormalizedName = "admin"
+                        },
+                        new
+                        {
+                            Id = new Guid("35c242f0-1238-4fd0-9450-00a6d3cf9573"),
+                            ConcurrencyStamp = "cb6db35a-9531-43c6-b2b3-9d9828e00b54",
+                            Description = "User role",
+                            Name = "user",
+                            NormalizedName = "user"
                         });
                 });
 
@@ -257,20 +270,39 @@ namespace YCC.Data.Migrations
                         {
                             Id = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e0259694-f6ee-4ff9-bab6-e42457e50447",
+                            ConcurrencyStamp = "7a6e953c-9c68-4001-a0af-a6e58594df7c",
                             Dob = new DateTime(2020, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "ycc@gmail.com",
+                            Email = "admin@gmail.com",
                             EmailConfirmed = true,
-                            FirstName = "Kjs",
-                            LastName = "Doji",
+                            FirstName = "Admin",
+                            LastName = "Ad",
                             LockoutEnabled = false,
-                            NormalizedEmail = "ycc@gmail.com",
+                            NormalizedEmail = "admin@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEESyMdiyZePFNpTCn+u75KsIaTgEM/Id2D/10oSeSpZoan1JTDWFWaJdtj5kgpKOcw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELsiJbd11X6h5rYxJ5mwKsL5lPT5GvPZVM09su8Jj/eaGTQNkgh8aRcZ5Htm3vsXsQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
                             UserName = "admin"
+                        },
+                        new
+                        {
+                            Id = new Guid("d1e5705a-03e0-4d86-8396-b639cedef1b7"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "a4c00fe8-c03a-43b2-bb45-4ef66471ec1d",
+                            Dob = new DateTime(2020, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "user@gmail.com",
+                            EmailConfirmed = true,
+                            FirstName = "User",
+                            LastName = "Us",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "user@gmail.com",
+                            NormalizedUserName = "user",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDJi0B7nRZNY9WK7TIpqk9C7MlREB0STqdK2JqFF0a38fdO0AtGSNvNmHG+R2oNDGQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "",
+                            TwoFactorEnabled = false,
+                            UserName = "user"
                         });
                 });
 
@@ -614,7 +646,7 @@ namespace YCC.Data.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2021, 6, 30, 19, 34, 23, 311, DateTimeKind.Local).AddTicks(357),
+                            DateCreated = new DateTime(2021, 7, 8, 23, 23, 59, 491, DateTimeKind.Local).AddTicks(9352),
                             OriginalPrice = 100000m,
                             Price = 200000m,
                             Stock = 0,
