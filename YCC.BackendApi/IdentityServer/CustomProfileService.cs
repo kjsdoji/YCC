@@ -38,7 +38,6 @@ namespace YCC.BackendApi.IdentityServer
             }
             else
             {
-                //them custom zo claim, mac dinh k co role
                 var claims = new List<Claim>
                 {
                     //new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString(CultureInfo.InvariantCulture)),
@@ -47,12 +46,9 @@ namespace YCC.BackendApi.IdentityServer
                     new Claim(JwtClaimTypes.Name, user.Email),
                     new Claim(JwtClaimTypes.Email, user.Email),
                 };
-                //_userManager expose ra cua ID4, lay ra cai role
                 var userRoles = await _userManager.GetRolesAsync(user);
                 foreach (var userRole in userRoles)
                 {
-                    //tao ra Claim voi role moi lay ra
-                    //de check coi user co dung role admin k
                     claims.Add(new Claim(JwtClaimTypes.Role, userRole));
                 }
 

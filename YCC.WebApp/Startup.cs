@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 
 namespace YCC.WebApp
 {
@@ -52,13 +53,36 @@ namespace YCC.WebApp
                         o.DefaultRequestCulture = new RequestCulture("vi");
                     };
                 });
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-             .AddCookie(options =>
-             {
-                 options.LoginPath = "/Account/Login";
-                 options.AccessDeniedPath = "/User/Forbidden/";
-             });
-
+            //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            // .AddCookie(options =>
+            // {
+            //     options.LoginPath = "/Account/Login";
+            //     options.AccessDeniedPath = "/User/Forbidden/";
+            // });
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = "Cookies";
+                options.DefaultChallengeScheme = "oidc";
+            })
+                .AddCookie("Cookies")
+                .AddOpenIdConnect("oidc", options =>
+                {
+                    options.Authority = "https://localhost:5001";
+                    options.RequireHttpsMetadata = false;
+                    options.GetClaimsFromUserInfoEndpoint = true;
+                    options.ClientId = "mvc";
+                    options.ClientSecret = "secret";
+                    options.ResponseType = "code";
+                    options.SaveTokens = true;
+                    options.Scope.Add("openid");
+                    options.Scope.Add("profile");
+                    options.Scope.Add("rookieshop.api");
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        NameClaimType = "name",
+                        RoleClaimType = "role"
+                    };
+                });
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);

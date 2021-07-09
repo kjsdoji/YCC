@@ -36,16 +36,14 @@ namespace YCC.BackendApi.IdentityServer
                 // interactive ASP.NET Core MVC client
                 new Client
                 {
-                    //username
                     ClientId = "mvc",
-                    //pass de check coi ben DB cua IS4 co user vs pass nay k
                     ClientSecrets = { new Secret("secret".Sha256()) },
-                    //react dung implicit
+                    //react -> implicit
                     AllowedGrantTypes = GrantTypes.Code,
-                    //dia chi cua trang FE React
-                    RedirectUris = { "https://localhost:44367/signin-oidc" },
+                    //FE React address
+                    RedirectUris = { "https://localhost:5003/signin-oidc" },
 
-                    PostLogoutRedirectUris = { "https://localhost:44367/signout-callback-oidc" },
+                    PostLogoutRedirectUris = { "https://localhost:5003/signout-callback-oidc" },
 
                     AllowedScopes = new List<string>
                     {
