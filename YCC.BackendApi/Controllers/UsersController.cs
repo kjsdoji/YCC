@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 using YCC.Application.System.Users;
 using YCC.ViewModels.System.Users;
 using Microsoft.AspNetCore.Authorization;
+using static IdentityServer4.IdentityServerConstants;
 
 namespace YCC.BackendApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    [Authorize(LocalApi.PolicyName)]
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;

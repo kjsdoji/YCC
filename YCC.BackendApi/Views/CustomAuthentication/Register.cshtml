@@ -1,4 +1,4 @@
-@model YCC.BackendApi.ViewModel.CustomAuthentication.RegisterAuthModelVM
+﻿@model YCC.BackendApi.ViewModel.CustomAuthentication.RegisterAuthModelVM
 
 <div class="login-page">
     <div class="lead">
@@ -27,14 +27,14 @@
                         <div class="form-group">
                             <label asp-for="Password"></label>
                             <input type="password" class="form-control" placeholder="Password" asp-for="Password"
-                                autocomplete="off">
+                                   autocomplete="off">
                             <span asp-validation-for="Password"></span>
                         </div>
 
                         <div class="form-group">
                             <label asp-for="PasswordConfirm"></label>
                             <input type="password" class="form-control" placeholder="Password" asp-for="PasswordConfirm"
-                                autocomplete="off">
+                                   autocomplete="off">
                             <span asp-validation-for="PasswordConfirm"></span>
                         </div>
                         <button class="btn btn-primary" name="button" value="login">Register</button>
@@ -43,7 +43,7 @@
 
                     <div class="d-flex mt-3">
                         <a class="btn btn-primary" asp-controller="Auth" asp-action="Login"
-                            asp-route-returnUrl="@Model.ReturnUrl">
+                           asp-route-returnUrl="@Model.ReturnUrl">
                             Back to Login
                         </a>
                     </div>

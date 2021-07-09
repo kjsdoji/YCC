@@ -42,7 +42,7 @@ namespace YCC.BackendApi.IdentityServer
                     ClientSecrets = { new Secret("secret".Sha256()) },
                     //react dung implicit
                     AllowedGrantTypes = GrantTypes.Code,
-                    //dia chi cua trang FE
+                    //dia chi cua trang FE React
                     RedirectUris = { "https://localhost:44367/signin-oidc" },
 
                     PostLogoutRedirectUris = { "https://localhost:44367/signout-callback-oidc" },

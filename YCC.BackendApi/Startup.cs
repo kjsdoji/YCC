@@ -29,6 +29,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using static IdentityServer4.IdentityServerConstants;
 using YCC.BackendApi.IdentityServer;
 using YCC.BackendApi.Security.Authorization.Requirements;
+using Microsoft.AspNetCore.Authorization;
+using YCC.BackendApi.Security.Authorization.Handlers;
 
 namespace YCC.BackendApi
 {
@@ -99,12 +101,14 @@ namespace YCC.BackendApi
                 options.AddPolicy("ADMIN_ROLE_POLICY", policy =>
                     policy.Requirements.Add(new AdminRoleRequirement()));
             });
+            services.AddSingleton<IAuthorizationHandler, AdminRoleHandler>();
             // RS
-            services.AddControllersWithViews().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>());
+            services.AddControllersWithViews();
+            //services.AddControllersWithViews().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>());
             // RS: Add Authentication and Scope to Swagger UI
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Swagger Movies Demo", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Swagger Rookie Shop", Version = "v1" });
                 //c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 //{
                 //    Description = @"JWT Authorization header using the Bearer scheme. \r\n\r\n
@@ -215,7 +219,7 @@ namespace YCC.BackendApi
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=CustomAuthentication}/{action=Login}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
         }

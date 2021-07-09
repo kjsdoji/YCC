@@ -21,13 +21,13 @@ namespace YCC.BackendApi.Controllers
         private IIdentityServerInteractionService _interaction;
         private SignInManager<AppUser> _signInManager;
         private UserManager<AppUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly RoleManager<AppRole> _roleManager;
         private readonly IEventService _events;
         public CustomAuthenticationController(
             IIdentityServerInteractionService interaction,
             IEventService events,
             UserManager<AppUser> userManager,
-            RoleManager<IdentityRole> roleManager,
+            RoleManager<AppRole> roleManager,
             SignInManager<AppUser> signInManager)
         {
             _interaction = interaction;
@@ -41,7 +41,6 @@ namespace YCC.BackendApi.Controllers
         {
             return View(new LoginAuthModelVM { ReturnUrl = returnUrl });
         }
-
         [HttpPost]
         public async Task<IActionResult> Login(LoginAuthModelVM loginVm, string button)
         {
@@ -66,13 +65,11 @@ namespace YCC.BackendApi.Controllers
 
             return Redirect(loginVm.ReturnUrl);
         }
-
         [HttpGet]
         public IActionResult Register(string returnUrl)
         {
             return View(new RegisterAuthModelVM { ReturnUrl = returnUrl });
         }
-
         [HttpPost]
         public async Task<IActionResult> Register(RegisterAuthModelVM RegisterVm, string button)
         {
@@ -101,10 +98,7 @@ namespace YCC.BackendApi.Controllers
 
             return Redirect(RegisterVm.ReturnUrl);
         }
-                
-        /// <summary>
-        /// Show logout page
-        /// </summary>
+        // Show logout page
         [HttpGet]
         public async Task<IActionResult> Logout(string logoutId)
         {
@@ -120,10 +114,7 @@ namespace YCC.BackendApi.Controllers
 
             return View(vm);
         }
-
-        /// <summary>
-        /// Handle logout page postback
-        /// </summary>
+        // Handle logout page postback
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout(LogoutInputModel model)
@@ -154,7 +145,6 @@ namespace YCC.BackendApi.Controllers
 
             return View("LoggedOut", vm);
         }
-
         private async Task<LogoutViewModel> BuildLogoutViewModelAsync(string logoutId)
         {
             var vm = new LogoutViewModel { LogoutId = logoutId, ShowLogoutPrompt = AccountOptions.ShowLogoutPrompt };
@@ -178,7 +168,6 @@ namespace YCC.BackendApi.Controllers
             // is automatically signed out by another malicious web page.
             return vm;
         }
-
         private async Task<LoggedOutViewModel> BuildLoggedOutViewModelAsync(string logoutId)
         {
             // get context information (client name, post logout redirect URI and iframe for federated signout)
