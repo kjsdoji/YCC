@@ -33,7 +33,8 @@ namespace YCC.WebApp.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            return View();
+            //return View();
+            return Challenge(new AuthenticationProperties { RedirectUri = "/" }, "oidc");
         }
 
         [HttpPost]
