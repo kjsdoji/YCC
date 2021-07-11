@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using YCC.Data.EF;
 
 namespace YCC.Data.Migrations
 {
     [DbContext(typeof(YCCDbContext))]
-    partial class YCCDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210709082429_AddProductReview")]
+    partial class AddProductReview
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -185,7 +187,7 @@ namespace YCC.Data.Migrations
                         new
                         {
                             Id = new Guid("8d04dce2-969a-435d-bba4-df3f325983dc"),
-                            ConcurrencyStamp = "0d6156ff-1cf5-4c9a-b066-9d559c4da617",
+                            ConcurrencyStamp = "89319e9b-8303-4acf-ac83-b4f2666d1ebc",
                             Description = "Administrator role",
                             Name = "admin",
                             NormalizedName = "admin"
@@ -193,7 +195,7 @@ namespace YCC.Data.Migrations
                         new
                         {
                             Id = new Guid("35c242f0-1238-4fd0-9450-00a6d3cf9573"),
-                            ConcurrencyStamp = "791f6b1d-2a74-48b1-aade-909f9023c7ae",
+                            ConcurrencyStamp = "b5c7b9ec-53bd-422d-a437-150727eba460",
                             Description = "User role",
                             Name = "user",
                             NormalizedName = "user"
@@ -270,7 +272,7 @@ namespace YCC.Data.Migrations
                         {
                             Id = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "83d8fe3f-cec6-4f09-b01d-f5ca6c53c0f1",
+                            ConcurrencyStamp = "5d2bcb24-64a6-423a-b82e-843ace571aab",
                             Dob = new DateTime(2020, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
@@ -279,7 +281,7 @@ namespace YCC.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "admin@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGvpQ94dBFWb/oxTMVtPGqPnMGAlQ6wc/YZBXS0cQpVfUlWsd57QmJXR591UayXL2g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBxfgyz8FNLc2RlywYVzL5MuBQ6FCT+9iF5pvR8clvYj9Q/uI1yhsnRZEV3nOlQQKw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -289,7 +291,7 @@ namespace YCC.Data.Migrations
                         {
                             Id = new Guid("d1e5705a-03e0-4d86-8396-b639cedef1b7"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "bba90aa7-175f-4fe8-9404-6ef567a4f1c2",
+                            ConcurrencyStamp = "91279349-534e-4d0d-a0dd-3247dae09c97",
                             Dob = new DateTime(2020, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "user@gmail.com",
                             EmailConfirmed = true,
@@ -298,7 +300,7 @@ namespace YCC.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "user@gmail.com",
                             NormalizedUserName = "user",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJiBQgdn8pWN1HygQiAu2sT/cDbiW+uEjeqO2oGeRDamTtpIy6wvgj/U6qiGx2ahxQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELUIJjP9br8pLNctYrfpFExrEitFTNBPWUc6Se0hwRISBnUK40+zcfdg+2NxNlnBkQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -646,7 +648,7 @@ namespace YCC.Data.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2021, 7, 9, 19, 22, 45, 398, DateTimeKind.Local).AddTicks(9314),
+                            DateCreated = new DateTime(2021, 7, 9, 15, 24, 28, 161, DateTimeKind.Local).AddTicks(467),
                             OriginalPrice = 100000m,
                             Price = 200000m,
                             Stock = 0,
@@ -1108,13 +1110,13 @@ namespace YCC.Data.Migrations
 
             modelBuilder.Entity("YCC.Data.Entities.ProductReview", b =>
                 {
-                    b.HasOne("YCC.Data.Entities.Product", "Products")
+                    b.HasOne("YCC.Data.Entities.Product", "Product")
                         .WithMany("ProductReviews")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Products");
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("YCC.Data.Entities.ProductTranslation", b =>

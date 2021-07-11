@@ -27,9 +27,7 @@ namespace YCC.WebApp
         {
             Configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
-        
+        public IConfiguration Configuration { get; }        
         // Add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -39,7 +37,6 @@ namespace YCC.WebApp
                 new CultureInfo("en"),
                 new CultureInfo("vi"),
             };
-
             services.AddControllersWithViews()
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>())
                 .AddExpressLocalization<ExpressLocalizationResource, ViewLocalizationResource>(ops =>
@@ -53,36 +50,37 @@ namespace YCC.WebApp
                         o.DefaultRequestCulture = new RequestCulture("vi");
                     };
                 });
-            //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            // .AddCookie(options =>
-            // {
-            //     options.LoginPath = "/Account/Login";
-            //     options.AccessDeniedPath = "/User/Forbidden/";
-            // });
-            services.AddAuthentication(options =>
-            {
-                options.DefaultScheme = "Cookies";
-                options.DefaultChallengeScheme = "oidc";
-            })
-                .AddCookie("Cookies")
-                .AddOpenIdConnect("oidc", options =>
-                {
-                    options.Authority = "https://localhost:5001";
-                    options.RequireHttpsMetadata = false;
-                    options.GetClaimsFromUserInfoEndpoint = true;
-                    options.ClientId = "mvc";
-                    options.ClientSecret = "secret";
-                    options.ResponseType = "code";
-                    options.SaveTokens = true;
-                    options.Scope.Add("openid");
-                    options.Scope.Add("profile");
-                    options.Scope.Add("rookieshop.api");
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        NameClaimType = "name",
-                        RoleClaimType = "role"
-                    };
-                });
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+             .AddCookie(options =>
+             {
+                 options.LoginPath = "/Account/Login";
+                 options.AccessDeniedPath = "/User/Forbidden/";
+             });
+            // RS: 
+            //services.AddAuthentication(options =>
+            //{
+            //    options.DefaultScheme = "Cookies";
+            //    options.DefaultChallengeScheme = "oidc";
+            //})
+            //    .AddCookie("Cookies")
+            //    .AddOpenIdConnect("oidc", options =>
+            //    {
+            //        options.Authority = "https://localhost:5001";
+            //        options.RequireHttpsMetadata = false;
+            //        options.GetClaimsFromUserInfoEndpoint = true;
+            //        options.ClientId = "mvc";
+            //        options.ClientSecret = "secret";
+            //        options.ResponseType = "code";
+            //        options.SaveTokens = true;
+            //        options.Scope.Add("openid");
+            //        options.Scope.Add("profile");
+            //        options.Scope.Add("rookieshop.api");
+            //        options.TokenValidationParameters = new TokenValidationParameters
+            //        {
+            //            NameClaimType = "name",
+            //            RoleClaimType = "role"
+            //        };
+            //    });
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);
@@ -105,7 +103,6 @@ namespace YCC.WebApp
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-            //app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseRouting();

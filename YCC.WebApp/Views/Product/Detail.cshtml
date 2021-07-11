@@ -3,6 +3,14 @@
     ViewData["Title"] = "Detail";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var culture = CultureInfo.CurrentCulture;
+    var ratingSum = ViewBag.RatingSum;
+    var ratingCount = ViewBag.RatingCount;
+    decimal rating = 0;
+    if(ratingCount>0)
+    {
+        rating = (ratingSum / ratingCount);
+    }
+    var totalRating = decimal.Parse(rating.ToString());
 }
 @inject Microsoft.Extensions.Configuration.IConfiguration Configuration;
 @inject LazZiya.ExpressLocalization.ISharedCultureLocalizer _loc;
@@ -13,6 +21,7 @@
 </ul>
 
 <div class="row">
+    <!-- List Image ========================================================================= -->
     <div id="gallery" class="span3">
         <a href="@Model.Product.ThumbnailImage" title="@Model.Product.Name">
             <img src="@Model.Product.ThumbnailImage" style="width:100%" alt="@Model.Product.Name" />
@@ -43,6 +52,8 @@
             </div>
         </div>
     </div>
+    <!-- List Image End ===================================================================== -->
+    <!-- More Detail ========================================================================= -->
     <div class="span6">
         <h3>@Model.Product.Name</h3>
         <small>@Model.Product.Description</small>
@@ -81,7 +92,49 @@
         <a href="#" name="detail"></a>
         <hr class="soft" />
     </div>
-
+    <!-- More Detail End ===================================================================== -->
+    <!-- Comment Rating ========================================================================= -->
+    <div class="span9">
+        <span class="starFadeN" id="sRate1"></span>
+        <span class="starFadeN" id="sRate2"></span>
+        <span class="starFadeN" id="sRate3"></span>
+        <span class="starFadeN" id="sRate4"></span>
+        <span class="starFadeN" id="sRate5"></span>
+        @foreach(var c in Model.ProductReviews) {
+            <hr />
+            <div class="row">
+                <div class="col-md-3">
+                    <i>@c.PublishedDate</i>
+                    <br />
+                    @for (var i = 1; i < c.Rating; i++)
+                    {
+                        <span class="starGlowN"></span>
+                    }
+                    @for (var i = (c.Rating+1); i < 5; i++)
+                    {
+                        <span class="starFadeN"></span>
+                    }
+                </div>
+                <div class="col-md-9">
+                    @Html.Raw(c.Comment.Replace("/n","<br/>"))
+                </div>
+            </div>
+        }
+        <hr/>
+        <partial name="_CommentBox"/>
+        <script>
+            function SCRate() {
+                for (var i = 1; i <=@totalRating; i++) {
+                    $("#sRate" + i).attr('class', 'starGlowN');
+                }
+            }
+            $(function (){
+                SCRate();
+            });
+        </script>
+    </div>
+    <!-- Comment Rating End ===================================================================== -->
+    <!-- Product Related ========================================================================= -->
     <div class="span9">
         <ul id="productDetail" class="nav nav-tabs">
             <li class="active"><a href="#home" data-toggle="tab"><localize>Product Details</localize></a></li>
@@ -153,4 +206,5 @@
             </div>
         </div>
     </div>
+    <!-- Product Related End ===================================================================== -->
 </div>

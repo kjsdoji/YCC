@@ -15,6 +15,7 @@ using System.Linq;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using YCC.ViewModels.Catalog.ProductReviews;
 
 namespace YCC.Application.Catalog.Products
 {
@@ -23,13 +24,11 @@ namespace YCC.Application.Catalog.Products
         private readonly YCCDbContext _context;
         private readonly IStorageService _storageService;
         private const string USER_CONTENT_FOLDER_NAME = "user-content";
-
         public ProductService(YCCDbContext context, IStorageService storageService)
         {
             _context = context;
             _storageService = storageService;
         }
-
         public async Task<int> AddImage(int productId, ProductImageCreateRequest request)
         {
             var productImage = new ProductImage()
@@ -50,14 +49,27 @@ namespace YCC.Application.Catalog.Products
             await _context.SaveChangesAsync();
             return productImage.Id;
         }
-
+        public async Task<int> AddReview(int productId, ProductReviewCreateRequest request)
+        {
+            var productReview = new ProductReview()
+            {
+                Comments = request.Comment,
+                PublishedDate = DateTime.Now,
+                ProductId = productId,
+                Rating = request.Rating
+            };
+            _context.ProductReviews.Add(productReview);
+            await _context.SaveChangesAsync();
+            // Id???
+            return productReview.Id;
+        }
         public async Task AddViewcount(int productId)
         {
             var product = await _context.Products.FindAsync(productId);
             product.ViewCount += 1;
             await _context.SaveChangesAsync();
         }
-
+        // Create without review!!!
         public async Task<int> Create(ProductCreateRequest request)
         {
             var languages = _context.Languages;
@@ -117,7 +129,6 @@ namespace YCC.Application.Catalog.Products
             await _context.SaveChangesAsync();
             return product.Id;
         }
-
         public async Task<int> Delete(int productId)
         {
             var product = await _context.Products.FindAsync(productId);
@@ -133,7 +144,6 @@ namespace YCC.Application.Catalog.Products
 
             return await _context.SaveChangesAsync();
         }
-
         public async Task<PagedResult<ProductVm>> GetAllPaging(GetManageProductPagingRequest request)
         {
             //1. Select join
@@ -189,7 +199,6 @@ namespace YCC.Application.Catalog.Products
             };
             return pagedResult;
         }
-
         public async Task<ProductVm> GetById(int productId, string languageId)
         {
             var product = await _context.Products.FindAsync(productId);
@@ -203,7 +212,7 @@ namespace YCC.Application.Catalog.Products
                                     select ct.Name).ToListAsync();
 
             var image = await _context.ProductImages.Where(x => x.ProductId == productId && x.IsDefault == true).FirstOrDefaultAsync();
-
+            var review = await _context.ProductReviews.Where(x => x.ProductId == productId).ToListAsync();
             var productViewModel = new ProductVm()
             {
                 Id = product.Id,
@@ -220,11 +229,11 @@ namespace YCC.Application.Catalog.Products
                 Stock = product.Stock,
                 ViewCount = product.ViewCount,
                 Categories = categories,
-                ThumbnailImage = image != null ? image.ImagePath : "no-image.jpg"
+                ThumbnailImage = image != null ? image.ImagePath : "no-image.jpg",
+                ProductReviews = review
             };
             return productViewModel;
         }
-
         public async Task<ProductImageViewModel> GetImageById(int imageId)
         {
             var image = await _context.ProductImages.FindAsync(imageId);
@@ -244,7 +253,22 @@ namespace YCC.Application.Catalog.Products
             };
             return viewModel;
         }
+        public async Task<ProductReviewViewModel> GetReviewById(int reviewId)
+        {
+            var review = await _context.ProductReviews.FindAsync(reviewId);
+            if (review == null)
+                throw new YCCException($"Cannot find an review with id {reviewId}");
 
+            var viewModel = new ProductReviewViewModel()
+            {
+                Id = review.Id,
+                ProductId = review.ProductId,
+                PublishedDate = review.PublishedDate,
+                Comment = review.Comments,
+                Rating = review.Rating
+            };
+            return viewModel;
+        }
         public async Task<List<ProductImageViewModel>> GetListImages(int productId)
         {
             return await _context.ProductImages.Where(x => x.ProductId == productId)
@@ -260,7 +284,6 @@ namespace YCC.Application.Catalog.Products
                     SortOrder = i.SortOrder
                 }).ToListAsync();
         }
-
         public async Task<int> RemoveImage(int imageId)
         {
             var productImage = await _context.ProductImages.FindAsync(imageId);
@@ -269,7 +292,6 @@ namespace YCC.Application.Catalog.Products
             _context.ProductImages.Remove(productImage);
             return await _context.SaveChangesAsync();
         }
-
         public async Task<int> Update(ProductUpdateRequest request)
         {
             var product = await _context.Products.FindAsync(request.Id);
@@ -299,7 +321,6 @@ namespace YCC.Application.Catalog.Products
 
             return await _context.SaveChangesAsync();
         }
-
         public async Task<int> UpdateImage(int imageId, ProductImageUpdateRequest request)
         {
             var productImage = await _context.ProductImages.FindAsync(imageId);
@@ -314,7 +335,6 @@ namespace YCC.Application.Catalog.Products
             _context.ProductImages.Update(productImage);
             return await _context.SaveChangesAsync();
         }
-
         public async Task<bool> UpdatePrice(int productId, decimal newPrice)
         {
             var product = await _context.Products.FindAsync(productId);
@@ -322,7 +342,6 @@ namespace YCC.Application.Catalog.Products
             product.Price = newPrice;
             return await _context.SaveChangesAsync() > 0;
         }
-
         public async Task<bool> UpdateStock(int productId, int addedQuantity)
         {
             var product = await _context.Products.FindAsync(productId);
@@ -330,8 +349,7 @@ namespace YCC.Application.Catalog.Products
             product.Stock += addedQuantity;
             return await _context.SaveChangesAsync() > 0;
         }
-
-        //IFormFile --> string
+        // IFormFile --> string
         private async Task<string> SaveFile(IFormFile file)
         {
             //lay ra filename
@@ -342,7 +360,6 @@ namespace YCC.Application.Catalog.Products
             await _storageService.SaveFileAsync(file.OpenReadStream(), fileName);
             return "/" + USER_CONTENT_FOLDER_NAME + "/" + fileName;
         }
-
         public async Task<PagedResult<ProductVm>> GetAllByCategoryId(string languageId, GetPublicProductPagingRequest request)
         {
             //1. Select join
@@ -389,7 +406,6 @@ namespace YCC.Application.Catalog.Products
             };
             return pagedResult;
         }
-
         public async Task<ApiResult<bool>> CategoryAssign(int id, CategoryAssignRequest request)
         {
             var user = await _context.Products.FindAsync(id);
@@ -418,7 +434,6 @@ namespace YCC.Application.Catalog.Products
             await _context.SaveChangesAsync();
             return new ApiSuccessResult<bool>();
         }
-
         public async Task<List<ProductVm>> GetFeaturedProducts(string languageId, int take)
         {
             //1. Select join
@@ -455,7 +470,6 @@ namespace YCC.Application.Catalog.Products
 
             return data;
         }
-
         public async Task<List<ProductVm>> GetLatestProducts(string languageId, int take)
         {
             //1. Select join

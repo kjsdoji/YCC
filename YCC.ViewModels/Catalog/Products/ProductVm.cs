@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using YCC.Data.Entities;
 using YCC.ViewModels.Catalog.Categories;
 
 namespace YCC.ViewModels.Catalog.Products
@@ -28,5 +29,6 @@ namespace YCC.ViewModels.Catalog.Products
         public string ThumbnailImage { get; set; }
 
         public List<string> Categories { get; set; } = new List<string>();
+        public List<ProductReview> ProductReviews { get; set; } = new List<ProductReview>();
     }
 }

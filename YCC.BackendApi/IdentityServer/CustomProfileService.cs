@@ -56,9 +56,21 @@ namespace YCC.BackendApi.IdentityServer
             }
         }
 
-        public Task IsActiveAsync(IsActiveContext context)
+        public async Task IsActiveAsync(IsActiveContext context)
         {
-            throw new NotImplementedException();
+            var sub = context.Subject?.GetSubjectId();
+            if (sub == null)
+            {
+                throw new Exception("No subject Id claim present");
+            }
+
+            var user = await _userManager.FindByIdAsync(sub);
+            if (user == null)
+            {
+                _logger.LogWarning("No user found matching subject Id: {0}", sub);
+            }
+
+            context.IsActive = user != null;
         }
     }
 }

@@ -17,4 +17,8 @@
     <ProjectReference Include="..\YCC.ApiIntegration\YCC.ApiIntegration.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\ProductReviews\" />
+  </ItemGroup>
+
 </Project>

@@ -7,6 +7,7 @@ using YCC.Application.Catalog.Products;
 using YCC.ViewModels.Catalog.ProductImages;
 using YCC.ViewModels.Catalog.Products;
 using Microsoft.AspNetCore.Authorization;
+using YCC.ViewModels.Catalog.ProductReviews;
 
 namespace YCC.BackendApi.Controllers
 {
@@ -16,19 +17,16 @@ namespace YCC.BackendApi.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly IProductService _productService;
-
         public ProductsController(IProductService productService)
         {
             _productService = productService;
         }
-
         [HttpGet("paging")]
         public async Task<IActionResult> GetAllPaging([FromQuery] GetManageProductPagingRequest request)
         {
             var products = await _productService.GetAllPaging(request);
             return Ok(products);
         }
-
         [HttpGet("{productId}/{languageId}")]
         public async Task<IActionResult> GetById(int productId, string languageId)
         {
@@ -37,7 +35,6 @@ namespace YCC.BackendApi.Controllers
                 return BadRequest("Cannot find product");
             return Ok(product);
         }
-
         [HttpGet("featured/{languageId}/{take}")]
         [AllowAnonymous]
         public async Task<IActionResult> GetFeaturedProducts(int take, string languageId)
@@ -45,7 +42,6 @@ namespace YCC.BackendApi.Controllers
             var products = await _productService.GetFeaturedProducts(languageId, take);
             return Ok(products);
         }
-
         [HttpGet("latest/{languageId}/{take}")]
         [AllowAnonymous]
         public async Task<IActionResult> GetLatestProducts(int take, string languageId)
@@ -53,7 +49,6 @@ namespace YCC.BackendApi.Controllers
             var products = await _productService.GetLatestProducts(languageId, take);
             return Ok(products);
         }
-
         [HttpPost]
         [Consumes("multipart/form-data")]
         [Authorize]
@@ -71,7 +66,6 @@ namespace YCC.BackendApi.Controllers
 
             return CreatedAtAction(nameof(GetById), new { id = productId }, product);
         }
-
         [HttpPut("{productId}")]
         [Consumes("multipart/form-data")]
         [Authorize]
@@ -87,7 +81,6 @@ namespace YCC.BackendApi.Controllers
                 return BadRequest();
             return Ok();
         }
-
         [HttpDelete("{productId}")]
         [Authorize]
         public async Task<IActionResult> Delete(int productId)
@@ -97,7 +90,6 @@ namespace YCC.BackendApi.Controllers
                 return BadRequest();
             return Ok();
         }
-
         [HttpPatch("{productId}/{newPrice}")]
         [Authorize]
         public async Task<IActionResult> UpdatePrice(int productId, decimal newPrice)
@@ -108,7 +100,6 @@ namespace YCC.BackendApi.Controllers
 
             return BadRequest();
         }
-
         [HttpPost("{productId}/images")]
         public async Task<IActionResult> CreateImage(int productId, [FromForm] ProductImageCreateRequest request)
         {
@@ -121,10 +112,23 @@ namespace YCC.BackendApi.Controllers
                 return BadRequest();
 
             var image = await _productService.GetImageById(imageId);
-
+            //------------------------------------------------------
             return CreatedAtAction(nameof(GetImageById), new { id = imageId }, image);
         }
-
+        [HttpPost("{productId}")]
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> AddReview(int productId, [FromForm] ProductReviewCreateRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var reviewId = await _productService.AddReview(productId, request);
+            if (reviewId == 0)
+                return BadRequest();
+            var review = await _productService.GetReviewById(reviewId);
+            return CreatedAtAction(nameof(GetReviewById), new { id = reviewId }, review);
+        }
         [HttpPut("{productId}/images/{imageId}")]
         [Authorize]
         public async Task<IActionResult> UpdateImage(int imageId, [FromForm] ProductImageUpdateRequest request)
@@ -139,7 +143,6 @@ namespace YCC.BackendApi.Controllers
 
             return Ok();
         }
-
         [HttpDelete("{productId}/images/{imageId}")]
         [Authorize]
         public async Task<IActionResult> RemoveImage(int imageId)
@@ -154,7 +157,6 @@ namespace YCC.BackendApi.Controllers
 
             return Ok();
         }
-
         [HttpGet("{productId}/images/{imageId}")]
         public async Task<IActionResult> GetImageById(int productId, int imageId)
         {
@@ -163,7 +165,14 @@ namespace YCC.BackendApi.Controllers
                 return BadRequest("Cannot find product");
             return Ok(image);
         }
-
+        [HttpGet("{productId}/reviews/{reviewId}")]
+        public async Task<IActionResult> GetReviewById(int productId, int reviewId)
+        {
+            var review = await _productService.GetReviewById(reviewId);
+            if (review == null)
+                return BadRequest("Cannot find product");
+            return Ok(review);
+        }
         [HttpPut("{id}/categories")]
         [Authorize]
         public async Task<IActionResult> CategoryAssign(int id, [FromBody] CategoryAssignRequest request)
